@@ -59,7 +59,8 @@ class App extends Component {
             {name:"Maximilian", age:"26"},
             {name: "Nikki", age:"24"}
         ],
-        otherState : "Some random value"
+        otherState: "Some random value",
+        showPersons: false
     }
 
     //for OnClick event
@@ -77,7 +78,7 @@ class App extends Component {
        })
     }
 
-    //for onChange event for input text
+    //for onChange event for input text (only for second person)
     nameChangeHandler = (event) => {
         this.setState({
             persons:[
@@ -87,6 +88,17 @@ class App extends Component {
             ]
         })
     }
+
+
+    // the arrow function is a better option than regular function because of "this" keyword for events
+    // this function will display the content or won't based on a toggle button click
+    togglePersonHandler = () => {
+        const doesShow = this.state.showPersons;
+        this.setState({showPersons:!doesShow});
+
+    }
+
+
   render() {
     const style = {
         backgroundColor: 'gray',
@@ -103,17 +115,21 @@ class App extends Component {
             <p>
                 I am working fine!
             </p>
-            <button onClick={this.switchNamesHandler.bind(this,'Ashish Ash')}
-            style={style}>Switch Name </button>
+            {/*passing by value to a function*/}
+            {/*<button onClick={this.switchNamesHandler.bind(this,'Ashish Ash')}*/}
+            {/*style={style}>Switch Name </button>*/}
+            <button onClick={this.togglePersonHandler}>Toggle Persons</button>
             {/*adding our own created Person component!*/}
-            <div>
-                <Person name= {this.state.persons[0].name} age={this.state.persons[0].age}
-                        clickme = {this.switchNamesHandler.bind(this,'AshishAshish')} >He loves playing Soccer </Person>
-                <Person name= {this.state.persons[1].name} age={this.state.persons[1].age}
-                        changeme = {this.nameChangeHandler}>He loves playing Soccer too!</Person>
-                <Person name= {this.state.persons[2].name} age={this.state.persons[2].age}>She loves sports!</Person>
-            </div>
-
+            {this.state.showPersons ?
+                <div>
+                    <Person name={this.state.persons[0].name} age={this.state.persons[0].age}
+                            clickme={this.switchNamesHandler.bind(this, 'AshishAshish')}>He loves playing
+                        Soccer </Person>
+                    <Person name={this.state.persons[1].name} age={this.state.persons[1].age}
+                            changeme={this.nameChangeHandler}>He loves playing Soccer too!</Person>
+                    <Person name={this.state.persons[2].name} age={this.state.persons[2].age}>She loves sports!</Person>
+                </div>:null
+            }
         </h1>
       </div>
     );
