@@ -65,7 +65,7 @@ class App extends Component {
 
     //for OnClick event
     //Here we do not declare the type of switchNamesHandler because inside a Class we can define it directly!
-    switchNamesHandler = (newName) => {
+/*    switchNamesHandler = (newName) => {
         //console.log("The button was clicked")
         // DO NOT DO THIS bcs state cant be changed like this -> this.state.persons[0].name = "Ashish Ash"
         //changing the state based on button click event using setState()!
@@ -76,7 +76,7 @@ class App extends Component {
                {name: "Nikki", age:"24"}
            ]
        })
-    }
+    }*/
 
     //for onChange event for input text (only for second person)
     nameChangeHandler = (event) => {
@@ -98,6 +98,17 @@ class App extends Component {
 
     }
 
+    deletePersonHandler = (personIndex) =>{
+        // retrieve elements from the state element into a const
+        const person = this.state.persons;
+        //deleting the element that was clicked
+        person.splice(personIndex,1);
+        //updating the state of the "state" object
+        this.setState(
+            {persons:person}
+            )
+    }
+
 
   render() {
     const style = {
@@ -108,10 +119,22 @@ class App extends Component {
         cursor: 'pointer'
     };
 
-    // for conditional check
+    // for conditional check - if false, then nothing is displayed because it is initialized with null
     let persons = null;
     if (this.state.showPersons){
-        persons=(
+        persons =(
+            <div>
+                {/*// using an arrow function that converts the array object from JS array to JSX
+                array for rendering*/}
+                {this.state.persons.map((person,index) =>{
+                    return <Person
+                        clickme = {() => this.deletePersonHandler(index)}
+                    name = {person.name}
+                    age = {person.age}/>
+                })}
+            </div>
+        );
+        /*persons=(
         <div>
             <Person name={this.state.persons[0].name} age={this.state.persons[0].age}
                     clickme={this.switchNamesHandler.bind(this, 'AshishAshish')}>He loves playing
@@ -120,7 +143,7 @@ class App extends Component {
                     changeme={this.nameChangeHandler}>He loves playing Soccer too!</Person>
             <Person name={this.state.persons[2].name} age={this.state.persons[2].age}>She loves sports!</Person>
         </div>
-        )
+        )*/
     }
 
     return (
