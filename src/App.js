@@ -55,9 +55,9 @@ class App extends Component {
     //creating a special "state" property to control the component data from inside the component.
     state = {
         persons:[
-            {name:"Ashish", age:"27"},
-            {name:"Maximilian", age:"26"},
-            {name: "Nikki", age:"24"}
+            {id:"asd" , name:"Ashish", age:"27"},
+            {id:"yxc", name:"Maximilian", age:"26"},
+            {id:"qwe" , name: "Nikki", age:"24"}
         ],
         otherState: "Some random value",
         showPersons: false
@@ -79,14 +79,24 @@ class App extends Component {
     }*/
 
     //for onChange event for input text (only for second person)
-    nameChangeHandler = (event) => {
+    nameChangeHandler = (event, id) => {
+        const personIndex = this.state.persons.findIndex(p =>{
+            return p.id ===id;
+        });
+
+        const person = {
+            ...this.state.persons[personIndex]
+        };
+
+        person.name = event.target.value;
+
+        const persons = [...this.state.persons];
+        persons[personIndex] = person;
+
         this.setState({
-            persons:[
-                {name: 'Ashish Ashish', age:"28"},
-                {name: event.target.value, age:"26"},
-                {name: 'Nikki', age:"24"}
-            ]
-        })
+            persons:persons
+        });
+
     }
 
 
@@ -99,8 +109,12 @@ class App extends Component {
     }
 
     deletePersonHandler = (personIndex) =>{
-        // retrieve elements from the state element into a const
-        const person = this.state.persons;
+        // retrieve elements from the state element into a const (mutable - changes the original state)
+        // const person = this.state.persons;
+        //copying the state into another const and not just referencing. This creates immutable lists
+        //const person = this.state.persons.slice();
+        //another alternative of copying the state is using SPREAD operator to create immutable state
+        const person = [...this.state.persons];
         //deleting the element that was clicked
         person.splice(personIndex,1);
         //updating the state of the "state" object
@@ -126,11 +140,14 @@ class App extends Component {
             <div>
                 {/*// using an arrow function that converts the array object from JS array to JSX
                 array for rendering*/}
-                {this.state.persons.map((person,index) =>{
+                {this.state.persons.map((person,index) => {
                     return <Person
                         clickme = {() => this.deletePersonHandler(index)}
                     name = {person.name}
-                    age = {person.age}/>
+                    age = {person.age}
+                    key = {person.id}
+                    changeme ={(event)=>this.nameChangeHandler(event, person.id)
+                    }/>
                 })}
             </div>
         );
