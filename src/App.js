@@ -108,6 +108,21 @@ class App extends Component {
         cursor: 'pointer'
     };
 
+    // for conditional check
+    let persons = null;
+    if (this.state.showPersons){
+        persons=(
+        <div>
+            <Person name={this.state.persons[0].name} age={this.state.persons[0].age}
+                    clickme={this.switchNamesHandler.bind(this, 'AshishAshish')}>He loves playing
+                Soccer </Person>
+            <Person name={this.state.persons[1].name} age={this.state.persons[1].age}
+                    changeme={this.nameChangeHandler}>He loves playing Soccer too!</Person>
+            <Person name={this.state.persons[2].name} age={this.state.persons[2].age}>She loves sports!</Person>
+        </div>
+        )
+    }
+
     return (
       <div className="App">
         <h1>
@@ -120,16 +135,7 @@ class App extends Component {
             {/*style={style}>Switch Name </button>*/}
             <button onClick={this.togglePersonHandler}>Toggle Persons</button>
             {/*adding our own created Person component!*/}
-            {this.state.showPersons ?
-                <div>
-                    <Person name={this.state.persons[0].name} age={this.state.persons[0].age}
-                            clickme={this.switchNamesHandler.bind(this, 'AshishAshish')}>He loves playing
-                        Soccer </Person>
-                    <Person name={this.state.persons[1].name} age={this.state.persons[1].age}
-                            changeme={this.nameChangeHandler}>He loves playing Soccer too!</Person>
-                    <Person name={this.state.persons[2].name} age={this.state.persons[2].age}>She loves sports!</Person>
-                </div>:null
-            }
+            {persons}
         </h1>
       </div>
     );
