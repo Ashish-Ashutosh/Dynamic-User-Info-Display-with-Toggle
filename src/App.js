@@ -80,19 +80,27 @@ class App extends Component {
 
     //for onChange event for input text (only for second person)
     nameChangeHandler = (event, id) => {
+        // first we obtain the index of the person whose input element was modified
         const personIndex = this.state.persons.findIndex(p =>{
-            return p.id ===id;
+             return p.id ===id;
         });
 
+        // extracting that particular person and adding it to temporary storage
         const person = {
             ...this.state.persons[personIndex]
+
         };
 
+        //updating the name of that received input of person in temporary storage
         person.name = event.target.value;
 
+        //fetching the entire state of persons into another STATE temporary storage
         const persons = [...this.state.persons];
+
+        //replacing the temporary STATE person whose input was changed to the latest input
         persons[personIndex] = person;
 
+        //updating the main STATE of the person from temporary STATE person.
         this.setState({
             persons:persons
         });
@@ -175,6 +183,7 @@ class App extends Component {
             {/*style={style}>Switch Name </button>*/}
             <button onClick={this.togglePersonHandler}>Toggle Persons</button>
             {/*adding our own created Person component!*/}
+            // will run as long as the content in persons is an HTML content
             {persons}
         </h1>
       </div>
