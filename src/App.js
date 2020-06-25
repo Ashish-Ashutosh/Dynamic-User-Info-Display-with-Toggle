@@ -80,7 +80,7 @@ class App extends Component {
 
     //for onChange event for input text (only for second person)
     nameChangeHandler = (event, id) => {
-        // first we obtain the index of the person whose input element was modified
+        // first we look if the event id exists in our list of id's
         const personIndex = this.state.persons.findIndex(p =>{
              return p.id ===id;
         });
@@ -134,7 +134,8 @@ class App extends Component {
 
   render() {
     const style = {
-        backgroundColor: 'gray',
+        backgroundColor: 'green',
+        color:'white',
         font: 'inherit',
         border: '1px solid blue',
         padding: '8px',
@@ -151,14 +152,17 @@ class App extends Component {
                 {this.state.persons.map((person,index) => {
                     return <Person
                         clickme = {() => this.deletePersonHandler(index)}
-                    name = {person.name}
-                    age = {person.age}
-                    key = {person.id}
-                    changeme ={(event)=>this.nameChangeHandler(event, person.id)
-                    }/>
+                        name = {person.name}
+                        age = {person.age}
+                        key = {person.id}
+                        changeme ={(event)=>this.nameChangeHandler(event, person.id)
+                        }/>
                 })}
             </div>
         );
+        //although "style" is a constant but we are not assigning the object a new value, we are only
+        //assigning a property of the object. So,in essence the object is not reassigned to a new object.
+        style.backgroundColor='red';
         /*persons=(
         <div>
             <Person name={this.state.persons[0].name} age={this.state.persons[0].age}
@@ -181,9 +185,11 @@ class App extends Component {
             {/*passing by value to a function*/}
             {/*<button onClick={this.switchNamesHandler.bind(this,'Ashish Ash')}*/}
             {/*style={style}>Switch Name </button>*/}
-            <button onClick={this.togglePersonHandler}>Toggle Persons</button>
+            <button
+                style={style}
+                onClick={this.togglePersonHandler}>Toggle Persons</button>
             {/*adding our own created Person component!*/}
-            // will run as long as the content in persons is an HTML content
+             {/*will run as long as the content in persons is an HTML content*/}
             {persons}
         </h1>
       </div>
