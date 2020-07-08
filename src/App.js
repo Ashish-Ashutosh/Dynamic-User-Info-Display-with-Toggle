@@ -57,7 +57,7 @@ class App extends Component {
         persons:[
             {id:"asd" , name:"Ashish", age:"27"},
             {id:"yxc", name:"Maximilian", age:"26"},
-            {id:"qwe" , name: "Nikki", age:"24"}
+            {id:"qwe" , name:"Nikki", age:"24"}
         ],
         otherState: "Some random value",
         showPersons: false
@@ -155,6 +155,7 @@ class App extends Component {
                         name = {person.name}
                         age = {person.age}
                         key = {person.id}
+                        //flexible lists used below
                         changeme ={(event)=>this.nameChangeHandler(event, person.id)
                         }/>
                 })}
@@ -175,12 +176,26 @@ class App extends Component {
         )*/
     }
 
+    //adding multiple styles into the <p> element below
+    //let classes = ['bold', 'red'].join(' ');
+    
+    // we can also add styles dynamically
+    const classes = [];
+    if (this.state.persons.length<=2){
+        classes.push('red');
+     }
+      if (this.state.persons.length<=1){
+          classes.push('bold');
+      }
+      
+      
     return (
       <div className="App">
         <h1>
-            I am a REACT application!
-            <p>
-                I am working fine!
+            Hi, I am a REACT application!
+        </h1>
+            <p className={classes.join(' ')}>
+                This is really working!!! Woot Woot!
             </p>
             {/*passing by value to a function*/}
             {/*<button onClick={this.switchNamesHandler.bind(this,'Ashish Ash')}*/}
@@ -191,7 +206,7 @@ class App extends Component {
             {/*adding our own created Person component!*/}
              {/*will run as long as the content in persons is an HTML content*/}
             {persons}
-        </h1>
+
       </div>
     );
     // the above code would automatically be converted to the below format (internally)
