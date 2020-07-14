@@ -1,7 +1,9 @@
 //import React, {useState} from 'react';
 import React, { Component } from 'react';
 import './App.css';
-import Person from './Person/Person'
+import Radium, {StyleRoot} from 'radium';
+import Person from './Person/Person';
+
 
 
 // using "states" inside a function-based component!
@@ -139,7 +141,12 @@ class App extends Component {
         font: 'inherit',
         border: '1px solid blue',
         padding: '8px',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        //adding hover to inline style using "Radium"
+        ':hover': {
+            backgroundColor: 'lightgreen',
+            color:'black'
+        }
     };
 
     // for conditional check - if false, then nothing is displayed because it is initialized with null
@@ -164,6 +171,10 @@ class App extends Component {
         //although "style" is a constant but we are not assigning the object a new value, we are only
         //assigning a property of the object. So,in essence the object is not reassigned to a new object.
         style.backgroundColor='red';
+        style[':hover'] = {
+            backgroundColor:'salmon',
+            color:'black'
+        }
         /*persons=(
         <div>
             <Person name={this.state.persons[0].name} age={this.state.persons[0].age}
@@ -179,7 +190,7 @@ class App extends Component {
     //adding multiple styles into the <p> element below
     //let classes = ['bold', 'red'].join(' ');
     
-    // we can also add styles dynamically
+    // we can also add styles dynamically based on conditions as done below
     const classes = [];
     if (this.state.persons.length<=2){
         classes.push('red');
@@ -190,24 +201,27 @@ class App extends Component {
       
       
     return (
-      <div className="App">
-        <h1>
-            Hi, I am a REACT application!
-        </h1>
-            <p className={classes.join(' ')}>
-                This is really working!!! Woot Woot!
-            </p>
-            {/*passing by value to a function*/}
-            {/*<button onClick={this.switchNamesHandler.bind(this,'Ashish Ash')}*/}
-            {/*style={style}>Switch Name </button>*/}
-            <button
-                style={style}
-                onClick={this.togglePersonHandler}>Toggle Persons</button>
-            {/*adding our own created Person component!*/}
-             {/*will run as long as the content in persons is an HTML content*/}
-            {persons}
+        <StyleRoot>
+              <div className="App">
+                <h1>
+                    Hi, I am a REACT application!
+                </h1>
+                    {/*Adding a new style here to the <p> tag*/}
+                    <p className={classes.join(' ')}>
+                        This is really working!!! Woot Woot!
+                    </p>
+                    {/*passing by value to a function*/}
+                    {/*<button onClick={this.switchNamesHandler.bind(this,'Ashish Ash')}*/}
+                    {/*style={style}>Switch Name </button>*/}
+                    <button
+                        style={style}
+                        onClick={this.togglePersonHandler}>Toggle Persons</button>
+                    {/*adding our own created Person component!*/}
+                     {/*will run as long as the content in persons is an HTML content*/}
+                    {persons}
 
-      </div>
+              </div>
+        </StyleRoot>
     );
     // the above code would automatically be converted to the below format (internally)
     //return React.createElement('div', {className:'App'}, React.createElement('h1',null, 'I am a direct React application'));
@@ -215,4 +229,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Radium(App);
