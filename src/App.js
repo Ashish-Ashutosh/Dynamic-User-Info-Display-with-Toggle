@@ -1,7 +1,7 @@
 //import React, {useState} from 'react';
 import React, { Component } from 'react';
 import './App.css';
-import Radium, {StyleRoot} from 'radium';
+//import Radium, {StyleRoot} from 'radium';
 import Person from './Person/Person';
 
 
@@ -202,7 +202,7 @@ class App extends Component {
       
     return (
         //Adding <StyleRoot> element so that we can use media queries with RADIUM
-        <StyleRoot>
+        //<StyleRoot>
               <div className="App">
                 <h1>
                     Hi, I am a REACT application!
@@ -222,7 +222,7 @@ class App extends Component {
                     {persons}
 
               </div>
-        </StyleRoot>
+        //</StyleRoot>
     );
     // the above code would automatically be converted to the below format (internally)
     //return React.createElement('div', {className:'App'}, React.createElement('h1',null, 'I am a direct React application'));
@@ -230,4 +230,5 @@ class App extends Component {
   }
 }
 
-export default Radium(App);
+//export default Radium(App);
+export default App;
