@@ -87,13 +87,13 @@ class App extends Component {
              return p.id ===id;
         });
 
-        // extracting that particular person and adding it to temporary storage
+        // extracting that particular person whose name has been changed and adding it to temporary storage variable
         const person = {
             ...this.state.persons[personIndex]
 
         };
 
-        //updating the name of that received input of person in temporary storage
+        //updating the name of that received input of person in temporary storage variable
         person.name = event.target.value;
 
         //fetching the entire state of persons into another STATE temporary storage
@@ -142,7 +142,7 @@ class App extends Component {
         border: '1px solid blue',
         padding: '8px',
         cursor: 'pointer',
-        //adding hover to inline style using "Radium"
+        //adding hover to inline style using "Radium" third party package
         ':hover': {
             backgroundColor: 'lightgreen',
             color:'black'
@@ -201,6 +201,7 @@ class App extends Component {
       
       
     return (
+        //Adding <StyleRoot> element so that we can use media queries with RADIUM
         <StyleRoot>
               <div className="App">
                 <h1>

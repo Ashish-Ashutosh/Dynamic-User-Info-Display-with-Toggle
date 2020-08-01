@@ -4,6 +4,7 @@ import Radium from 'radium';
 
 const person = (props) => {
     const style = {
+        //adding media queries using RADIUM
         '@media (min-width:500px)': {
             //fixed width that does not grow dynamically for the components shown in the UI, in this case <person>
             width: '450px'
